@@ -79,10 +79,10 @@ WSGI_APPLICATION = 'back.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'nfl',
-        'USER': 'nfl_user',
-        'PASSWORD': '1234',
-        'HOST': '127.0.0.1',
+        'NAME': 'projet_nfl',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
             'charset': 'utf8mb4',
