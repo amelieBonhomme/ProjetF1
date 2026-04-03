@@ -1,7 +1,7 @@
 from rest_framework import viewsets
-from .models import NflUser, Equipe, Commentaire, Favoris
+from .models import f1User, Equipe, Commentaire, Favoris
 from .serializers import (
-    NflUserSerializer, EquipeSerializer,
+    f1UserSerializer, EquipeSerializer,
     CommentaireSerializer, FavorisSerializer
 )
 from rest_framework.views import APIView
@@ -12,9 +12,9 @@ from django.contrib.auth.hashers import check_password
 import uuid
 
 
-class NflUserViewSet(viewsets.ModelViewSet):
-    queryset = NflUser.objects.all()
-    serializer_class = NflUserSerializer
+class f1UserViewSet(viewsets.ModelViewSet):
+    queryset = f1User.objects.all()
+    serializer_class = f1UserSerializer
 
 class EquipeViewSet(viewsets.ModelViewSet):
     queryset = Equipe.objects.all()
@@ -37,8 +37,8 @@ class LoginView(APIView):
             return Response({"error": "Champs manquants"}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            user = NflUser.objects.get(login=login)
-        except NflUser.DoesNotExist:
+            user = f1User.objects.get(login=login)
+        except f1User.DoesNotExist:
             return Response({"error": "Utilisateur introuvable"}, status=status.HTTP_404_NOT_FOUND)
 
         if not check_password(mdp, user.mdp):
@@ -65,12 +65,12 @@ class RegisterView(APIView):
         if not login or not mdp or not nom or not prenom or not mail or not sexe or not date_naissance:
             return Response({"error": "Champs manquants"}, status=status.HTTP_400_BAD_REQUEST)
 
-        if NflUser.objects.filter(login=login).exists():
+        if f1User.objects.filter(login=login).exists():
             return Response({"error": "Login déjà utilisé"}, status=status.HTTP_400_BAD_REQUEST)
 
         id_user = str(uuid.uuid4())
 
-        user = NflUser.objects.create(
+        user = f1User.objects.create(
             id_user=id_user,
             login=login,
             mdp=make_password(mdp),

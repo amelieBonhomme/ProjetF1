@@ -1,342 +1,159 @@
 <template>
+  <img class ="carte"  src="https://logodownload.org/wp-content/uploads/2016/11/formula-1-logo-0.png" alt="carte" />
   <div class="layout">
-    <header class="topbar">
-      <span class="logo">NFL</span>
-      <span class="year">EST. 1920</span>
-    </header>
 
-    <main class="hero">
-      <h1 class="title">
-        FOOTBALL<br />
-        <span>WITHOUT</span><br />
-        MERCY
-      </h1>
+    <main id="accueil">
+      <h1 class="titre">🏎️ Qu’est-ce que la Formule 1 ?</h1>
+      <p>
+        <h4>
+          La Formule 1 est la discipline reine du sport automobile mondial. Elle oppose des écuries
+          internationales qui conçoivent des monoplaces ultra‑technologiques capables d’atteindre plus de
+          350 km/h. Chaque course, appelée “Grand Prix”, se déroule sur des circuits mythiques à travers
+          le monde. L’objectif est simple : terminer la saison avec le plus de points pour devenir
+          Champion du Monde.
+        </h4>
+      </p>
 
-      <div class="image-zone">
-        <img src="../assets/nfl_ac.png" alt="NFL" />
+      <div class="paragraphe">
+        <li><h4>Les pilotes marquent des points selon leur position à l’arrivée (25 points pour le vainqueur).</h4></li>
+        <li><h4>Un point supplémentaire est attribué au pilote réalisant le meilleur tour en course.</h4></li>
+        <li><h4>Les écuries cumulent les points de leurs deux pilotes pour le Championnat Constructeurs.</h4></li>
       </div>
 
-      <div class="info">
-        <p>Un sport brutal, stratégique et spectaculaire. Ici, chaque mètre se gagne.</p>
-
-        <div class="actions">
-          <router-link to="/rules" class="btn"> Rules </router-link>
-          <router-link to="/gallery" class="btn ghost"> Gallery </router-link>
-        </div>
+      <h1 class="titre">Principes fondamentaux :</h1>
+      <div class="paragraphe">
+        <li><h4>Chaque Grand Prix se déroule sur un week‑end : essais libres, qualifications, puis course.</h4></li>
+        <li><h4>Les qualifications déterminent l’ordre de départ selon le meilleur temps au tour.</h4></li>
+        <li><h4>Les monoplaces sont régies par un règlement technique strict défini par la FIA.</h4></li>
+        <li><h4>Les arrêts aux stands (changement de pneus) sont essentiels pour la stratégie de course.</h4></li>
+        <li><h4>La sécurité est une priorité absolue : halo, combinaisons ignifugées, crash-tests, etc.</h4></li>
       </div>
-    </main>
 
-    <!-- OVERLAY -->
-    <div v-if="!isLogged" class="overlay">
-      <div class="login-box">
+      <h1 class="titre">Organisation du championnat :</h1>
+      <p>
+        Le Championnat du Monde de Formule 1 est une compétition internationale organisée par la FIA.
+        Il se compose d’une vingtaine de courses réparties sur plusieurs continents. Chaque écurie
+        participe avec deux pilotes, et toutes affrontent les mêmes circuits, du Moyen‑Orient à l’Europe,
+        en passant par l’Asie et les Amériques.
+      </p>
 
-        <!-- FORMULAIRE DE CONNEXION -->
-        <div v-if="!isRegistering">
-          <h2>Connexion</h2>
-
-          <form @submit.prevent="handleLogin">
-            <input type="text" placeholder="Login" v-model="login" required />
-            <input type="password" placeholder="Mot de passe" v-model="mdp" required />
-            <button type="submit">Se connecter</button>
-          </form>
-
-          <p v-if="error" class="error">{{ error }}</p>
-
-          <p class="switch" @click="isRegistering = true">
-            Pas de compte ? <span>Inscription</span>
-          </p>
-        </div>
-
-        <!-- FORMULAIRE D'INSCRIPTION -->
-        <div v-else>
-          <h2>Inscription</h2>
-
-          <form @submit.prevent="handleRegister">
-            <input type="text" placeholder="Login" v-model="regLogin" required />
-            <input type="password" placeholder="Mot de passe" v-model="regMdp" required />
-
-            <input type="text" placeholder="Nom" v-model="regNom" required />
-            <input type="text" placeholder="Prénom" v-model="regPrenom" required />
-
-            <div class="sexe-group">
-              <label>
-                <input type="radio" value="H" v-model="regSexe" />
-                Homme
-              </label>
-
-              <label>
-                <input type="radio" value="F" v-model="regSexe" />
-                Femme
-              </label>
-
-              <label>
-                <input type="radio" value="X" v-model="regSexe" />
-                Autre
-              </label>
-            </div>
-
-            <input type="date" v-model="regDate" required />
-
-            <input type="email" placeholder="Email" v-model="regMail" required />
-
-            <button type="submit">Créer un compte</button>
-          </form>
-
-          <p v-if="error" class="error">{{ error }}</p>
-
-          <p class="switch" @click="isRegistering = false">
-            Déjà un compte ? <span>Connexion</span>
-          </p>
-        </div>
-
+      <p>
+        Contrairement aux sports structurés en conférences ou divisions, la F1 fonctionne comme un
+        championnat unique où toutes les équipes s’affrontent à chaque Grand Prix. La saison se conclut
+        par la remise de deux titres prestigieux : le Champion du Monde Pilotes et le Champion du Monde
+        Constructeurs.
+      </p>
+      <h1 class = "titre">Vidéo introductive :</h1>
+      <div class="video-container">
+        <iframe
+          src="https://www.youtube.com/embed/tO0Zti6af0g"
+          title="Vidéo football américain"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen>
+        </iframe>
       </div>
+      </main>
+  </div>
+  <!-- OVERLAY visible seulement si pas connecté -->
+  <div v-if="!isLogged" class="overlay">
+    <div class="login-box">
+
+      <!-- FORMULAIRE DE CONNEXION -->
+      <div v-if="!isRegistering">
+        <h2>Connexion</h2>
+
+        <form @submit.prevent="handleLogin">
+          <input type="text" placeholder="Login" v-model="loginField" required />
+          <input type="password" placeholder="Mot de passe" v-model="mdpField" required />
+          <button type="submit">Se connecter</button>
+        </form>
+
+        <p v-if="error" class="error">{{ error }}</p>
+
+        <p class="switch" @click="isRegistering = true">
+          Pas de compte ? <span>Inscription</span>
+        </p>
+      </div>
+
+      <!-- FORMULAIRE D'INSCRIPTION -->
+      <div v-else>
+        <h2>Inscription</h2>
+
+        <form @submit.prevent="handleRegister">
+          <input type="text" placeholder="Login" v-model="regLogin" required />
+          <input type="password" placeholder="Mot de passe" v-model="regMdp" required />
+
+          <input type="text" placeholder="Nom" v-model="regNom" required />
+          <input type="text" placeholder="Prénom" v-model="regPrenom" required />
+
+          <div class="sexe-group">
+            <label><input type="radio" value="H" v-model="regSexe" /> Homme</label>
+            <label><input type="radio" value="F" v-model="regSexe" /> Femme</label>
+            <label><input type="radio" value="X" v-model="regSexe" /> Autre</label>
+          </div>
+
+          <input type="date" v-model="regDate" required />
+          <input type="email" placeholder="Email" v-model="regMail" required />
+
+          <button type="submit">Créer un compte</button>
+        </form>
+
+        <p v-if="error" class="error">{{ error }}</p>
+
+        <p class="switch" @click="isRegistering = false">
+          Déjà un compte ? <span>Connexion</span>
+        </p>
+      </div>
+
     </div>
   </div>
+
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted } from "vue"
+import { useAuth } from "@/composables/useAuth.js"
 
-const isLogged = ref(false);
-const isRegistering = ref(false);
+const {
+  isLogged,
+  error,
+  login,
+  register,
+  loadUser
+} = useAuth()
 
-const login = ref("");
-const mdp = ref("");
-const error = ref("");
+// Champs du formulaire
+const loginField = ref("")
+const mdpField = ref("")
+const isRegistering = ref(false)
 
-const regLogin = ref("");
-const regMdp = ref("");
-const regNom = ref("");
-const regPrenom = ref("");
-const regSexe = ref("");
-const regDate = ref("");
-const regMail = ref("");
+const regLogin = ref("")
+const regMdp = ref("")
+const regNom = ref("")
+const regPrenom = ref("")
+const regSexe = ref("")
+const regDate = ref("")
+const regMail = ref("")
 
 onMounted(() => {
-  const user = localStorage.getItem("user");
-  isLogged.value = !!user;
-});
+  loadUser()
+})
 
-const handleLogin = async () => {
-  const response = await fetch("http://localhost:8000/api/login/", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ login: login.value, mdp: mdp.value }),
-  });
+const handleLogin = () => {
+  login(loginField.value, mdpField.value)
+}
 
-  const data = await response.json();
-
-  if (!response.ok) {
-    error.value = data.error;
-  } else {
-    localStorage.setItem("user", JSON.stringify(data));
-    isLogged.value = true;
-  }
-};
-
-const handleRegister = async () => {
-  const response = await fetch("http://localhost:8000/api/register/", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      login: regLogin.value,
-      mdp: regMdp.value,
-      nom: regNom.value,
-      prenom: regPrenom.value,
-      sexe: regSexe.value,
-      date_naissance: regDate.value,
-      mail: regMail.value,
-    }),
-  });
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    error.value = data.error;
-  } else {
-    // Auto-login après inscription
-    localStorage.setItem("user", JSON.stringify(data));
-    isLogged.value = true;
-  }
-};
+const handleRegister = () => {
+  register({
+    login: regLogin.value,
+    mdp: regMdp.value,
+    nom: regNom.value,
+    prenom: regPrenom.value,
+    sexe: regSexe.value,
+    date_naissance: regDate.value,
+    mail: regMail.value,
+  })
+}
 </script>
-
-<style>
-/* GLOBAL */
-.layout {
-  background-color: rgba(0, 0, 0, 0.849);
-  min-height: 100vh;
-  color: white;
-  font-family: 'Inter', system-ui, sans-serif;
-  padding: 2rem;
-  box-shadow: 0 0 20px 10px rgba(0, 0, 0, 1);
-  position: relative;
-}
-
-/* TOPBAR */
-.topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 700;
-  letter-spacing: 2px;
-  opacity: 0.8;
-}
-
-/* HERO */
-.hero {
-  margin-top: 4rem;
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  grid-template-rows: auto auto;
-  gap: 3rem;
-}
-
-/* TITRE */
-.title {
-  grid-column: 1 / 2;
-  font-size: clamp(4rem, 8vw, 8rem);
-  font-weight: 900;
-  line-height: 0.95;
-  text-transform: uppercase;
-}
-
-.title span {
-  color: #c8102e;
-}
-
-/* IMAGE */
-.image-zone {
-  grid-column: 2 / 3;
-  grid-row: 1 / 3;
-  position: relative;
-}
-
-.image-zone img {
-  width: 100%;
-  object-fit: cover;
-  filter: grayscale(100%) contrast(120%);
-  mix-blend-mode: lighten;
-  border-radius: 20rem;
-}
-
-/* TEXTE */
-.info {
-  max-width: 420px;
-}
-
-.info p {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.75);
-}
-
-/* ACTIONS */
-.actions {
-  display: flex;
-  gap: 1.5rem;
-  margin-top: 2rem;
-}
-
-/* BOUTONS */
-.btn {
-  padding: 0.8rem 2rem;
-  background: white;
-  color: black;
-  font-weight: 700;
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: transform 0.2s ease;
-}
-
-.btn:hover {
-  transform: translateY(-3px);
-}
-
-.btn.ghost {
-  background: transparent;
-  color: white;
-  border: 1px solid white;
-}
-
-/* OVERLAY */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(4px);
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* FORMULAIRE */
-.login-box {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 2rem;
-  border-radius: 12px;
-  width: 320px;
-  text-align: center;
-  backdrop-filter: blur(6px);
-}
-
-.login-box h2 {
-  margin-bottom: 1rem;
-  color: white;
-}
-
-.login-box input {
-  width: 100%;
-  padding: 0.8rem;
-  margin-bottom: 1rem;
-  border: none;
-  border-radius: 6px;
-}
-
-.login-box button {
-  width: 100%;
-  padding: 0.8rem;
-  background: #c8102e;
-  color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(200, 16, 46, 0.4);
-}
-
-.login-box button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 18px rgba(200, 16, 46, 0.6);
-}
-
-.login-box button:active {
-  transform: scale(0.95);
-  box-shadow: 0 2px 8px rgba(200, 16, 46, 0.3);
-}
-
-.switch {
-  margin-top: 1rem;
-  cursor: pointer;
-  color: #ddd;
-}
-
-.switch span {
-  color: #c8102e;
-  font-weight: bold;
-}
-
-.error {
-  margin-top: 1rem;
-  color: #ff6b6b;
-}
-.sexe-group {
-  display: flex;
-}
-</style>

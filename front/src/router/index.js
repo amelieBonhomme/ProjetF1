@@ -2,7 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import HomeView from '../views/HomeView.vue'
 import RulesView from '../views/RulesView.vue'
-import AccueilView from '../views/AccueilView.vue'
+import CircuitView from '../views/CircuitView.vue'
+import EcurieView from '../views/EcurieView.vue'
+import ClassementView from '../views/ClassementView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -13,14 +15,24 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/rules',
-      name: 'rules',
+      path: '/regles',
+      name: 'regles',
       component: RulesView,
     },
     {
-      path: '/accueil',
-      name: 'accueil',
-      component: AccueilView,
+      path: '/ecurie',
+      name: 'ecurie',
+      component: EcurieView,
+    },
+    {
+      path: '/circuit',
+      name: 'circuit',
+      component: CircuitView,
+    },
+    {
+      path: '/classement',
+      name: 'classement',
+      component: ClassementView,
     },
   ],
 })

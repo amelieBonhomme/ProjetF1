@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from .models import NflUser, Equipe, Commentaire, Favoris
+from .models import f1User, Equipe, Commentaire, Favoris
 
-class NflUserSerializer(serializers.ModelSerializer):
+class f1UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = NflUser
+        model = f1User
         fields = '__all__'
 
 class EquipeSerializer(serializers.ModelSerializer):

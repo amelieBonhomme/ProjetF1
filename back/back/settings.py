@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'back.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'projet_nfl',
+        'NAME': 'projet_f1',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',

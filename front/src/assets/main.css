@@ -19,3 +19,330 @@ body {
   margin: 0 auto;
   padding: 2rem;
 }
+/*---------------------------------------------------    Page App.vue   ------------------------------------------------------*/
+/* NAVBAR STYLE GP-EXPLORER */
+.navbar {
+  position:relative;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  z-index: 1000;
+}
+
+/* LISTE */
+.navbar ul {
+  display: flex;
+  gap: 50px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* LIENS */
+.navbar li a {
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.25s ease;
+}
+
+.navbar li a:hover {
+  color: #c8102e; /* rouge F1 */
+  transform: translateY(-2px);
+}
+
+/* LOGO IMAGE */
+.navbar li a img {
+  width: 55px;
+  filter: drop-shadow(0 0 4px rgba(255,255,255,0.4));
+}
+.generalLayout {
+  min-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.849);
+  color: white;
+  padding: 4rem 2rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  box-shadow: 0 0 20px 10px rgba(0, 0, 0, 1);
+  margin-top: 10%;
+}
+/*---------------------------------------------------    Page Home      ------------------------------------------------------*/
+#background-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 99vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+}
+.layout{
+  background-color: rgba(0, 0, 0, 0.849);
+  min-height: 100vh;
+  color: white;
+  font-family: 'Inter', system-ui, sans-serif;
+  padding: 2rem;
+  box-shadow: 0 0 20px 10px rgba(0, 0, 0, 1);
+}
+.carte {
+  margin-left: 55%;
+  border-radius: 3rem;
+  width: 45%;
+  opacity: 0.9;
+}
+.legende{
+  margin-left: 70%;
+  font-style:italic ;
+  text-decoration:underline;
+  margin-bottom: 2%;
+}
+.titre {
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
+.paragraphe {
+  margin-left: 5%;
+}
+.paragraphe li h4{
+  margin-top: 1%;
+}
+/* FORMULAIRE */
+.login-box {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 320px;
+  text-align: center;
+  backdrop-filter: blur(6px);
+}
+
+.login-box h2 {
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 6px;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 0.8rem;
+  background: #c8102e;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(200, 16, 46, 0.4);
+}
+
+.login-box button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(200, 16, 46, 0.6);
+}
+
+.login-box button:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 8px rgba(200, 16, 46, 0.3);
+}
+
+.switch {
+  margin-top: 1rem;
+  cursor: pointer;
+  color: #ddd;
+}
+
+.switch span {
+  color: #c8102e;
+  font-weight: bold;
+}
+
+.error {
+  margin-top: 1rem;
+  color: #ff6b6b;
+}
+
+.sexe-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+/* BOUTON DÉCONNEXION */
+.logout-btn {
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #c8102e;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: #a00d24;
+  transform: translateY(-50%) scale(1.05);
+}
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 2rem auto;
+  aspect-ratio: 16 / 9;
+}
+
+.video-container iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+}
+
+
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/*---------------------------------------------------- ecurie ---------------------------------------------------------*/
+/* --- FLIP CARD --- */
+.flip-card {
+  width: 100%;
+  height: 400px; /* un peu plus haut pour le texte */
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+/* --- FACE AVANT --- */
+.flip-card-front {
+  background: rgb(17, 12, 12);
+  border: 2px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.flip-card-front img {
+  width: 80%;
+}
+
+/* --- FACE ARRIÈRE --- */
+.flip-card-back {
+  background: #620817;
+  color: white;
+  transform: rotateY(180deg);
+  font-size: 14px;
+  padding: 15px;
+  overflow: hidden; /* empêche le débordement */
+}
+
+/* --- TEXTE + IMAGE --- */
+.back-layout {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.back-text {
+  width: 60%;
+  text-align: left;
+  max-height: 100%;
+}
+
+.back-text p {
+  font-size: 13px;
+  margin-bottom: 8px;
+  white-space: pre-line; /* respecte les retours à la ligne */
+}
+
+.back-image img {
+  width: 150px; /* image plus grande */
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* --- GRID DES CARTES --- */
+.bloc_club {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+  .bloc_club {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .bloc_club {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .back-layout {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .back-text {
+    width: 100%;
+    text-align: center;
+  }
+}

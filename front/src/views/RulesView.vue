@@ -1,7 +1,5 @@
 <template>
-  <router-link to="/" class="back-btn"> ← Return </router-link>
-
-  <div class="rules-layout">
+  <div class="generalLayout">
     <header class="rules-header">
       <h1>Rules & Positions</h1>
       <p>Comprendre le football américain, poste par poste.</p>
@@ -67,14 +65,7 @@
 </template>
 
 <style>
-.rules-layout {
-  min-height: 100vh;
-  background-color: rgba(0, 0, 0, 0.849);
-  color: white;
-  padding: 4rem 2rem;
-  font-family: 'Inter', system-ui, sans-serif;
-  box-shadow: 0 0 20px 10px rgba(0, 0, 0, 1);
-}
+
 
 .rules-header {
   max-width: 600px;

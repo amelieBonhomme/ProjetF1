@@ -18,8 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('api.urls')),
+    path('admin/', admin.site.urls), # Permet de transmet toutes la partie admin
+    path('api/', include('api.urls')),# Permet de transmet toutes les api
     
 ]
 
