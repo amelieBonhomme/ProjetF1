@@ -6,6 +6,10 @@ export async function getEquipes() {
   const response = await fetch(API_URL + "equipes/")
   return await response.json()
 }
+export async function getCircuit() {
+  const response = await fetch(API_URL + "circuit/")
+  return await response.json()
+}
 
 export async function getUsers() {
   const response = await fetch(API_URL + "users/")
