@@ -27,6 +27,17 @@ class Equipe(models.Model):
     class Meta:
         db_table = 'equipe'  
 
+class Circuit(models.Model):
+    id_circuit = models.CharField(primary_key=True, max_length=50)
+    nom_circuit = models.CharField(max_length=50, blank=True, null=True)
+    image_circuit = models.TextField(blank=True, null=True)
+    description_circuit = models.TextField(blank=True, null=True)
+    lien_site = models.TextField(blank=True, null=True)
+
+    class Meta:
+        db_table = 'circuit'  
+
+
 
 class Commentaire(models.Model):
     id_commentaire = models.CharField(primary_key=True, max_length=50)
@@ -45,3 +56,12 @@ class Favoris(models.Model):
     class Meta:
         db_table = 'favoris'
         unique_together = (('user', 'equipe'),)
+
+class Prefere(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey('f1User', on_delete=models.CASCADE, db_column='id_user')
+    circuit = models.ForeignKey('Circuit', on_delete=models.CASCADE, db_column='id_circuit')
+
+    class Meta:
+        db_table = 'prefere'
+        unique_together = (('user', 'circuit'),)

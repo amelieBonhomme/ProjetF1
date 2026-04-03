@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import f1User, Equipe, Commentaire, Favoris
+from .models import f1User, Equipe,Circuit, Commentaire, Favoris, Prefere
 
 class f1UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,6 +11,11 @@ class EquipeSerializer(serializers.ModelSerializer):
         model = Equipe
         fields = '__all__'
 
+class CircuitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Circuit
+        fields = '__all__'
+
 class CommentaireSerializer(serializers.ModelSerializer):
     class Meta:
         model = Commentaire
@@ -19,4 +24,9 @@ class CommentaireSerializer(serializers.ModelSerializer):
 class FavorisSerializer(serializers.ModelSerializer):
     class Meta:
         model = Favoris
+        fields = '__all__'
+
+class PrefereSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Prefere
         fields = '__all__'

@@ -1,8 +1,8 @@
 from rest_framework import viewsets
-from .models import f1User, Equipe, Commentaire, Favoris
+from .models import f1User, Equipe,Circuit, Commentaire, Favoris, Prefere
 from .serializers import (
-    f1UserSerializer, EquipeSerializer,
-    CommentaireSerializer, FavorisSerializer
+    f1UserSerializer, EquipeSerializer,CircuitSerializer,
+    CommentaireSerializer, FavorisSerializer, PrefereSerializer
 )
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -20,6 +20,10 @@ class EquipeViewSet(viewsets.ModelViewSet):
     queryset = Equipe.objects.all()
     serializer_class = EquipeSerializer
 
+class CircuitViewSet(viewsets.ModelViewSet):
+    queryset = Circuit.objects.all()
+    serializer_class = CircuitSerializer
+
 class CommentaireViewSet(viewsets.ModelViewSet):
     queryset = Commentaire.objects.all()
     serializer_class = CommentaireSerializer
@@ -27,6 +31,10 @@ class CommentaireViewSet(viewsets.ModelViewSet):
 class FavorisViewSet(viewsets.ModelViewSet):
     queryset = Favoris.objects.all()
     serializer_class = FavorisSerializer
+
+class PrefereViewSet(viewsets.ModelViewSet):
+    queryset = Prefere.objects.all()
+    serializer_class = PrefereSerializer
 
 class LoginView(APIView):
     def post(self, request):
