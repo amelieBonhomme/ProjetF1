@@ -3,21 +3,6 @@
 
     <main id="accueil">
       <h1 class="titre">Les 10 écuries engagées en Formule 1</h1>
-      <p class="intro-f1">
-        Le Championnat du Monde de Formule 1 réunit chaque saison <strong>10 écuries</strong>, 
-        un nombre fixé par la FIA afin de garantir un niveau de compétition élevé, 
-        une stabilité financière et une gestion optimale du plateau.  
-        Chaque écurie engage <strong>deux pilotes</strong>, soit un total de 20 concurrents 
-        qui s’affrontent sur les circuits du monde entier : Europe, Asie, Amériques, Moyen‑Orient.
-      </p>
-      <br>
-
-      <p class="intro-f1">
-        Ces 10 équipes représentent l’élite du sport automobile. Elles conçoivent leurs propres 
-        monoplaces, développent leurs moteurs ou collaborent avec des motoristes partenaires, 
-        et disposent d’infrastructures technologiques parmi les plus avancées au monde.
-      </p>
-      <br>
 
       <div class="bloc_club">
         <div 
@@ -35,7 +20,13 @@
 
             <!-- FACE ARRIÈRE -->
             <div class="flip-card-back back-layout">
-              
+
+              <!-- ❤️ BOUTON FAVORI -->
+              <button class="heart-btn" @click.stop="toggleFavoriEquipe(equipe.id_equipe)">
+                <span v-if="favoris.includes(equipe.id_equipe)">❤️</span>
+                <span v-else>🤍</span>
+              </button>
+
               <div class="back-text">
                 <p>{{ equipe.description }}</p>
               </div>
@@ -53,16 +44,6 @@
           </div>
         </div>
       </div>
-      <h1 class="titre">Une 11ᵉ équipe bientôt ?</h1>
-      <p>
-        Ces dernières années, <strong>Andretti Cadillac</strong> a tenté d’entrer en Formule 1.
-        La <strong>FIA</strong> a validé leur candidature, mais la <strong>F1</strong> a refusé leur arrivée
-        pour le moment.  
-      </p>
-      <p>
-        Si la situation évolue, le plateau pourrait passer à <strong>11 écuries</strong> dans le futur,
-        mais ce n’est pas le cas aujourd’hui.
-      </p>
 
     </main>
   </div>
@@ -71,11 +52,25 @@
 <script setup>
 import { ref, onMounted } from "vue"
 import { getEquipes } from "@/services/api.js"
+import { getFavoris, toggleFavori } from "@/services/favorisApi.js"
 
 const equipes = ref([])
+const favoris = ref([])
+
+const user = JSON.parse(localStorage.getItem("user"))
 
 onMounted(async () => {
   equipes.value = await getEquipes()
+  favoris.value = await getFavoris(user.id_user)
 })
-</script>
 
+async function toggleFavoriEquipe(id_equipe) {
+  console.log("CLICK sur équipe :", id_equipe)
+
+  const res = await toggleFavori(user.id_user, id_equipe)
+  console.log("Réponse API toggle :", res)
+
+  favoris.value = await getFavoris(user.id_user)
+  console.log("Favoris mis à jour :", favoris.value)
+}
+</script>

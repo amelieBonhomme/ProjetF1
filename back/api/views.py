@@ -36,6 +36,7 @@ class PrefereViewSet(viewsets.ModelViewSet):
     queryset = Prefere.objects.all()
     serializer_class = PrefereSerializer
 
+# ------------------------------------------   gestion login ---------------------------------------------------
 class LoginView(APIView):
     def post(self, request):
         login = request.data.get("login")
@@ -96,3 +97,59 @@ class RegisterView(APIView):
             "prenom": user.prenom,
             "mail": user.mail
         }, status=status.HTTP_201_CREATED)
+    
+# ----------------------------------------------------------   Gestion des favoris ----------------------------------
+
+from rest_framework.decorators import api_view
+
+@api_view(['GET'])
+def get_favoris_user(request, id_user):
+    favoris = Favoris.objects.filter(user_id=id_user)
+    equipes_ids = favoris.values_list("equipe_id", flat=True)
+    return Response(list(equipes_ids))
+
+
+@api_view(['POST'])
+def toggle_favori(request):
+    user_id = request.data.get("user_id")
+    equipe_id = request.data.get("equipe_id")
+
+    if not user_id or not equipe_id:
+        return Response({"error": "Champs manquants"}, status=400)
+
+    try:
+        favori = Favoris.objects.get(user_id=user_id, equipe_id=equipe_id)
+        favori.delete()
+        return Response({"status": "removed"})
+    except Favoris.DoesNotExist:
+        Favoris.objects.create(user_id=user_id, equipe_id=equipe_id)
+        return Response({"status": "added"})
+    
+# ----------------------------------------------------------   Gestion des circuits ----------------------------------
+
+from rest_framework.decorators import api_view
+
+@api_view(['GET'])
+def get_prefere_user(request, id_user):
+    prefere = Prefere.objects.filter(user_id=id_user)
+    circuit_ids = prefere.values_list("circuit_id", flat=True)
+    return Response(list(circuit_ids))
+
+
+@api_view(['POST'])
+def toggle_prefere(request):
+    user_id = request.data.get("user_id")
+    equipe_id = request.data.get("equipe_id")
+
+    if not user_id or not equipe_id:
+        return Response({"error": "Champs manquants"}, status=400)
+
+    try:
+        favori = Favoris.objects.get(user_id=user_id, equipe_id=equipe_id)
+        favori.delete()
+        return Response({"status": "removed"})
+    except Favoris.DoesNotExist:
+        Favoris.objects.create(user_id=user_id, equipe_id=equipe_id)
+        return Response({"status": "added"})
+
+

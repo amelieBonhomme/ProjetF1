@@ -346,6 +346,22 @@ body {
     text-align: center;
   }
 }
+
+.heart-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 20;
+  transition: transform 0.2s ease;
+}
+
+.heart-btn:hover {
+  transform: scale(1.2);
+}
 /*---------------------------------------------------    Page rules      ------------------------------------------------------*/
 .rules-header {
   max-width: 700px;
@@ -494,4 +510,28 @@ body {
     margin: 0 auto;
   }
 }
+/*---------------------------------------------------    Page classement      ------------------------------------------------------*/
 
+.classement-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 3rem;
+}
+
+.classement-table th,
+.classement-table td {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1rem;
+  text-align: center;
+}
+
+.classement-table th {
+  background: rgba(255, 255, 255, 0.1);
+  font-weight: bold;
+}
+.update-date {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
