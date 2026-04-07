@@ -10,7 +10,9 @@ from rest_framework import status
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
 import uuid
-
+from rest_framework.decorators import api_view
+from django.http import JsonResponse
+from django.db.models import Count
 
 class f1UserViewSet(viewsets.ModelViewSet):
     queryset = f1User.objects.all()
@@ -100,7 +102,7 @@ class RegisterView(APIView):
     
 # ----------------------------------------------------------   Gestion des favoris ----------------------------------
 
-from rest_framework.decorators import api_view
+
 
 @api_view(['GET'])
 def get_favoris_user(request, id_user):
@@ -127,7 +129,7 @@ def toggle_favori(request):
     
 # ----------------------------------------------------------   Gestion des circuits ----------------------------------
 
-from rest_framework.decorators import api_view
+
 
 @api_view(['GET'])
 def get_prefere_user(request, id_user):
@@ -154,4 +156,9 @@ def toggle_prefere(request):
         Prefere.objects.create(user_id=user_id, circuit_id=circuit_id)
         return Response({"status": "added"})
 
+# ----------------------------------------------------------   Satistiques ----------------------------------
 
+def stats_sexe(request):
+    data = f1User.objects.values('sexe').annotate(total=Count('sexe'))
+    result = {item['sexe']: item['total'] for item in data}
+    return JsonResponse(result)

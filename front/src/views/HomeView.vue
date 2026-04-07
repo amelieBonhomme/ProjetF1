@@ -54,7 +54,12 @@
           allowfullscreen>
         </iframe>
       </div>
-      </main>
+      <h1 class="titre">Statistique des utilisateurs du site :</h1>
+
+      <div class="chart-container">
+        <canvas id="sexeChart"></canvas>
+      </div>
+    </main>
   </div>
   <!-- OVERLAY visible seulement si pas connecté -->
   <div v-if="!isLogged" class="overlay">
@@ -115,20 +120,14 @@
 <script setup>
 import { ref, onMounted } from "vue"
 import { useAuth } from "@/composables/useAuth.js"
+import { renderSexeChart } from "@/services/statsCharts.js"
 
-const {
-  isLogged,
-  error,
-  login,
-  register,
-  loadUser
-} = useAuth()
+const { isLogged, error, login, register, loadUser } = useAuth()
 
-// Champs du formulaire
+// Formulaire...
 const loginField = ref("")
 const mdpField = ref("")
 const isRegistering = ref(false)
-
 const regLogin = ref("")
 const regMdp = ref("")
 const regNom = ref("")
@@ -137,23 +136,21 @@ const regSexe = ref("")
 const regDate = ref("")
 const regMail = ref("")
 
-onMounted(() => {
+onMounted(async () => {
   loadUser()
+  await renderSexeChart("sexeChart")
 })
 
-const handleLogin = () => {
-  login(loginField.value, mdpField.value)
-}
-
-const handleRegister = () => {
-  register({
-    login: regLogin.value,
-    mdp: regMdp.value,
-    nom: regNom.value,
-    prenom: regPrenom.value,
-    sexe: regSexe.value,
-    date_naissance: regDate.value,
-    mail: regMail.value,
-  })
-}
+const handleLogin = () => login(loginField.value, mdpField.value)
+const handleRegister = () => register({
+  login: regLogin.value,
+  mdp: regMdp.value,
+  nom: regNom.value,
+  prenom: regPrenom.value,
+  sexe: regSexe.value,
+  date_naissance: regDate.value,
+  mail: regMail.value,
+})
 </script>
+
+

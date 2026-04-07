@@ -231,6 +231,16 @@ body {
   justify-content: center;
   align-items: center;
 }
+.chart-container {
+  width: 50%;        /* moitié de la largeur de la page */
+  max-width: 400px;  /* limite max */
+  margin: 0 auto;
+}
+
+#sexeChart {
+  width: 100%;
+  height: auto;
+}
 
 
 /*---------------------------------------------------- ecurie ---------------------------------------------------------*/
