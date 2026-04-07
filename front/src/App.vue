@@ -1,24 +1,25 @@
 <script setup>
-  import { RouterView, useRouter } from 'vue-router'
-  import { ref, onMounted } from 'vue'
-  import fondVideo from "@/assets/fond1.mp4"
+import { RouterView, useRouter } from 'vue-router'
+import { onMounted } from 'vue'
+import fondVideo from "@/assets/fond1.mp4"
 
+import { useAuth } from "@/composables/useAuth.js"
 
-  const router = useRouter()
-  const isLogged = ref(false)
+const router = useRouter()
 
-  onMounted(() => {
-    isLogged.value = !!localStorage.getItem("user")
-  })
+// ⭐ Une seule instance du composable
+const { isLogged, loadUser, logout } = useAuth()
 
-  const logout = () => {
-    localStorage.removeItem("user")
-    isLogged.value = false
-    router.push("/")   // retour à l'accueil
-    window.location.reload() // recharge pour réactiver l’overlay
-  }
+onMounted(() => {
+  loadUser()
+})
+
+const logoutUser = () => {
+  console.log("LOGOUT CLICKED")
+  logout()
+  router.push("/")
+}
 </script>
-
 
 <template>
   <nav class="navbar">
@@ -31,17 +32,18 @@
     </ul>
   </nav>
 
-
   <video autoplay muted loop id="background-video">
     <source :src="fondVideo" type="video/mp4">
   </video>
+
   <!-- BOUTON DÉCONNEXION -->
   <button 
     v-if="isLogged" 
     class="logout-btn"
-    @click="logout"
+    @click="logoutUser"
   >
     Déconnexion
   </button>
+
   <RouterView />
 </template>

@@ -42,5 +42,12 @@ export function useAuth() {
     }
   }
 
-  return { isLogged, user, error, login, register, loadUser }
+  const logout = () => {
+    localStorage.removeItem("user")
+    user.value = null
+    isLogged.value = false
+  }
+
+  // ⭐⭐ LA LIGNE QUI MANQUAIT ⭐⭐
+  return { isLogged, user, error, login, register, loadUser, logout }
 }

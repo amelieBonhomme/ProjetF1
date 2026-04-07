@@ -139,6 +139,7 @@ def get_prefere_user(request, id_user):
 @api_view(['POST'])
 def toggle_prefere(request):
     print("DEBUG POST :", request.data)
+    
     user_id = request.data.get("user_id")
     circuit_id = request.data.get("circuit_id")
 
