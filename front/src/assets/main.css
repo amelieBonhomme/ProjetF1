@@ -454,6 +454,7 @@ body {
   border-radius: 1rem;
   margin-bottom: 3rem;
   background: rgba(255, 255, 255, 0.03);
+  position: relative;
 }
 
 .circuit-title {

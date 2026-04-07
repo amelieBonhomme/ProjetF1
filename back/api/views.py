@@ -138,18 +138,19 @@ def get_prefere_user(request, id_user):
 
 @api_view(['POST'])
 def toggle_prefere(request):
+    print("DEBUG POST :", request.data)
     user_id = request.data.get("user_id")
-    equipe_id = request.data.get("equipe_id")
+    circuit_id = request.data.get("circuit_id")
 
-    if not user_id or not equipe_id:
+    if not user_id or not circuit_id:
         return Response({"error": "Champs manquants"}, status=400)
 
     try:
-        favori = Favoris.objects.get(user_id=user_id, equipe_id=equipe_id)
-        favori.delete()
+        prefere = Prefere.objects.get(user_id=user_id, circuit_id=circuit_id)
+        prefere.delete()
         return Response({"status": "removed"})
-    except Favoris.DoesNotExist:
-        Favoris.objects.create(user_id=user_id, equipe_id=equipe_id)
+    except Prefere.DoesNotExist:
+        Prefere.objects.create(user_id=user_id, circuit_id=circuit_id)
         return Response({"status": "added"})
 
 

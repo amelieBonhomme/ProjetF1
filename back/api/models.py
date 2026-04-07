@@ -58,10 +58,10 @@ class Favoris(models.Model):
         unique_together = (('user', 'equipe'),)
 
 class Prefere(models.Model):
-    id = models.AutoField(primary_key=True)
-    user = models.ForeignKey('f1User', on_delete=models.CASCADE, db_column='id_user')
-    circuit = models.ForeignKey('Circuit', on_delete=models.CASCADE, db_column='id_circuit')
+    user = models.ForeignKey('f1User',on_delete=models.CASCADE,db_column='id_user')
+    circuit = models.ForeignKey('Circuit',on_delete=models.CASCADE,db_column='id_circuit')
 
     class Meta:
         db_table = 'prefere'
         unique_together = (('user', 'circuit'),)
+        managed = False  # ⭐ IMPORTANT : Django ne tente plus de créer/modifier la table
