@@ -286,7 +286,7 @@ body {
   background: #620817;
   color: white;
   transform: rotateY(180deg);
-  font-size: 14px;
+  font-size: 5%;
   padding: 15px;
   overflow: hidden; /* empêche le débordement */
 }
@@ -307,15 +307,15 @@ body {
 }
 
 .back-text p {
-  font-size: 13px;
+  font-size: clamp(9px, 1.5vw, 13px);
   margin-bottom: 8px;
   white-space: pre-line; /* respecte les retours à la ligne */
 }
 
 .back-image img {
-  width: 150px; /* image plus grande */
+  width: 100%;
+  max-width: 120px;
   height: auto;
-  border-radius: 10px;
   object-fit: cover;
 }
 
