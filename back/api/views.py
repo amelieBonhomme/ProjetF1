@@ -14,6 +14,11 @@ from rest_framework.decorators import api_view
 from django.http import JsonResponse
 from django.db.models import Count
 
+from django.views.decorators.csrf import csrf_exempt
+import json
+from datetime import date
+
+
 class f1UserViewSet(viewsets.ModelViewSet):
     queryset = f1User.objects.all()
     serializer_class = f1UserSerializer
@@ -102,8 +107,6 @@ class RegisterView(APIView):
     
 # ----------------------------------------------------------   Gestion des favoris ----------------------------------
 
-
-
 @api_view(['GET'])
 def get_favoris_user(request, id_user):
     favoris = Favoris.objects.filter(user_id=id_user)
@@ -128,8 +131,6 @@ def toggle_favori(request):
         return Response({"status": "added"})
     
 # ----------------------------------------------------------   Gestion des circuits ----------------------------------
-
-
 
 @api_view(['GET'])
 def get_prefere_user(request, id_user):
@@ -162,3 +163,44 @@ def stats_sexe(request):
     data = f1User.objects.values('sexe').annotate(total=Count('sexe'))
     result = {item['sexe']: item['total'] for item in data}
     return JsonResponse(result)
+
+# ----------------------------------------------------------   commentaire  ----------------------------------
+
+def get_commentaires(request):
+    commentaires = Commentaire.objects.select_related("user").order_by("-date")[:10]
+    data = [
+        {
+            "id": c.id_commentaire,
+            "texte": c.texte,
+            "date": c.date,
+            "user": {
+                "id": c.user.id_user,
+                "login": c.user.login
+            }
+        }
+        for c in commentaires
+    ]
+    return JsonResponse(data, safe=False)
+
+@csrf_exempt
+def add_commentaire(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "Méthode non autorisée"}, status=405)
+
+    body = json.loads(request.body)
+
+    texte = body.get("texte")
+    id_user = body.get("id_user")
+
+    if not texte or not id_user:
+        return JsonResponse({"error": "Champs manquants"}, status=400)
+
+    new_comment = Commentaire.objects.create(
+        id_commentaire=str(uuid.uuid4()),
+        texte=texte,
+        date=date.today(),
+        user_id=id_user
+    )
+
+    return JsonResponse({"success": True})
+

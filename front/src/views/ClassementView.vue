@@ -53,6 +53,18 @@
           </tr>
         </tbody>
       </table>
+      <h1>Commentaires :</h1>
+      <div class="commentaires">
+        <div v-for="c in commentaires" :key="c.id" class="comment">
+          <p class="auteur">{{ c.user.login }} — {{ c.date }}</p>
+          <p>{{ c.texte }}</p>
+        </div>
+      </div>
+
+      <div v-if="user" class="add-comment">
+        <textarea v-model="newComment" placeholder="Écrire un commentaire..."></textarea>
+        <button @click="submitComment">Envoyer</button>
+      </div>
 
     </main>
   </div>
@@ -62,6 +74,7 @@
 import { ref, onMounted } from "vue"
 import { getClassementPilotes, getClassementConstructeurs } from "@/services/classementApi.js"
 import { getFavoris } from "@/services/favorisApi.js"
+import { getCommentaires, addCommentaire } from "@/services/commentairesApi.js"
 
 const pilotes = ref([])
 const pilotesSeason = ref("")
@@ -73,6 +86,9 @@ const constructeursRound = ref("")
   
 const favoris = ref([])
 const user = JSON.parse(localStorage.getItem("user"))
+
+const commentaires = ref([])
+const newComment = ref("")
 
 const mapConstructors = {
   alpine: "ALPINE",
@@ -102,7 +118,19 @@ onMounted(async () => {
 
   favoris.value = await getFavoris(user.id_user)
 
+  commentaires.value = await getCommentaires()
+
 })
+
+const submitComment = async () => {
+  if (!newComment.value.trim()) return
+
+  await addCommentaire(newComment.value, user.id_user)
+  newComment.value = ""
+
+  // Rafraîchir la liste
+  commentaires.value = await getCommentaires()
+}
 </script>
 
 

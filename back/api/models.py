@@ -42,6 +42,7 @@ class Circuit(models.Model):
 class Commentaire(models.Model):
     id_commentaire = models.CharField(primary_key=True, max_length=50)
     texte = models.TextField(blank=True, null=True)
+    date = models.DateField(blank=True, null=True)
     user = models.ForeignKey('f1User', on_delete=models.CASCADE, db_column='id_user')
 
     class Meta:

@@ -2,7 +2,7 @@ from rest_framework import routers
 from .views import (
     f1UserViewSet, EquipeViewSet, CircuitViewSet,
     CommentaireViewSet, FavorisViewSet,PrefereViewSet,
-    LoginView, RegisterView, get_favoris_user, toggle_favori, get_prefere_user, toggle_prefere, stats_sexe
+    LoginView, RegisterView, get_favoris_user, toggle_favori, get_prefere_user, toggle_prefere, stats_sexe,get_commentaires,add_commentaire 
 )
 from django.urls import path, include
 
@@ -24,6 +24,9 @@ urlpatterns = [
     path('prefere/toggle/', toggle_prefere),
     path('prefere/<str:id_user>/', get_prefere_user),
     path('stats/sexe/', stats_sexe),
+    path('commentaires/', get_commentaires),
+    path('commentaires/add/', add_commentaire),
+
 
     # ⭐ ROUTES DU ROUTER
     path('', include(router.urls)),

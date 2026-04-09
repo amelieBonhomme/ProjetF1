@@ -21,8 +21,9 @@ body {
 }
 /*---------------------------------------------------    Page App.vue   ------------------------------------------------------*/
 /* NAVBAR STYLE GP-EXPLORER */
+/* NAVBAR PC — inchangée */
 .navbar {
-  position:relative;
+  position: relative;
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
@@ -38,8 +39,8 @@ body {
   z-index: 1000;
 }
 
-/* LISTE */
-.navbar ul {
+/* LISTE PC */
+.nav-links {
   display: flex;
   gap: 50px;
   list-style: none;
@@ -47,8 +48,7 @@ body {
   padding: 0;
 }
 
-/* LIENS */
-.navbar li a {
+.nav-links a {
   color: white;
   font-size: 18px;
   font-weight: 600;
@@ -56,15 +56,9 @@ body {
   transition: 0.25s ease;
 }
 
-.navbar li a:hover {
-  color: #c8102e; /* rouge F1 */
+.nav-links a:hover {
+  color: #c8102e;
   transform: translateY(-2px);
-}
-
-/* LOGO IMAGE */
-.navbar li a img {
-  width: 55px;
-  filter: drop-shadow(0 0 4px rgba(255,255,255,0.4));
 }
 .generalLayout {
   min-height: 100vh;
@@ -545,4 +539,79 @@ body {
   opacity: 0.7;
   margin-top: -10px;
   margin-bottom: 20px;
+}
+.commentaires {
+  margin-top: 20px;
+}
+
+.comment {
+  background: rgba(255,255,255,0.1);
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.auteur {
+  font-weight: bold;
+  color: #ff4d4d;
+}
+
+.add-comment textarea {
+  width: 100%;
+  height: 80px;
+  margin-top: 10px;
+  padding: 8px;
+}
+
+.add-comment button {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: #ff4d4d;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+/*------------------------------------------------ version mobile ---------------------------------------------------------*/
+/* VERSION MOBILE */
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  left: 20px;
+}
+
+@media (max-width: 768px) {
+
+  /* On affiche le bouton hamburger */
+  .hamburger {
+    display: block;
+  }
+
+  /* On cache le menu par défaut */
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    background: rgba(0,0,0,0.9);
+    padding: 15px;
+    border-radius: 8px;
+    width: 150px;
+  }
+
+  /* Quand le menu est ouvert */
+  .nav-links.open {
+    display: flex;
+  }
+
+  /* On centre plus rien sur mobile */
+  .navbar {
+    justify-content: flex-start;
+  }
 }
