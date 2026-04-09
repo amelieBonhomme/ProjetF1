@@ -584,7 +584,9 @@ body {
   position: absolute;
   left: 20px;
 }
-
+.logout-btn-mobile {
+    display: none;
+  }
 @media (max-width: 768px) {
 
   /* On affiche le bouton hamburger */
@@ -613,5 +615,11 @@ body {
   /* On centre plus rien sur mobile */
   .navbar {
     justify-content: flex-start;
+  }
+  .logout-btn {
+    display: none;
+  }
+  .logout-btn-mobile {
+    display: block;
   }
 }

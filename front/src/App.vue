@@ -28,15 +28,6 @@ const toggleMenu = () => {
 
 <template>
   <nav class="navbar">
-    <!-- <ul>
-      <li><router-link to="/">Accueil</router-link></li>
-      <li><router-link to="/regles">Règles</router-link></li>
-      <li><router-link to="/ecurie">Ecurie</router-link></li>
-      <li><router-link to="/circuit">Circuit</router-link></li>
-      <li><router-link to="/classement">Classement</router-link></li>
-    </ul>
-  </nav>
-  <nav class="navbar"> -->
 
     <!-- Bouton hamburger (mobile uniquement) -->
     <button class="hamburger" @click="toggleMenu">
@@ -51,6 +42,10 @@ const toggleMenu = () => {
       <li><router-link to="/circuit">Circuit</router-link></li>
       <li><router-link to="/classement">Classement</router-link></li>
       <li><router-link to="/classement">Classement</router-link></li>
+      <li><button v-if="isLogged" class="logout-btn-mobile"@click="logoutUser">
+          Déconnexion
+        </button>
+      </li>
     </ul>
   </nav>
 
