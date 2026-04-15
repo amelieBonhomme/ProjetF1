@@ -196,18 +196,15 @@ def get_commentaires(request):
     ]
     return JsonResponse(data, safe=False)
 
-@csrf_exempt
+@api_view(['POST'])
 def add_commentaire(request):
     # on évite les méthode get
     if request.method != "POST":
         return JsonResponse({"error": "Méthode non autorisée"}, status=405)
 
-    # on récupère le contenu requêtes
-    body = json.loads(request.body)
-
     # On extrait les infos
-    texte = body.get("texte")
-    id_user = body.get("id_user")
+    texte = request.data.get("texte")
+    id_user = request.data.get("id_user")
 
     # On vérifie que ce n'est pas vide
     if not texte or not id_user:
