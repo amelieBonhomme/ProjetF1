@@ -1,7 +1,7 @@
 from django.db import models
 
 class f1User(models.Model):
-    id_user = models.CharField(primary_key=True, max_length=50)
+    id_user = models.CharField(primary_key=True, max_length=255)
     nom = models.CharField(max_length=50, blank=True, null=True)
     prenom = models.CharField(max_length=50, blank=True, null=True)
     sexe = models.CharField(max_length=50, blank=True, null=True)
