@@ -17,6 +17,7 @@ from django.db.models import Count
 from django.views.decorators.csrf import csrf_exempt
 import json
 from datetime import date
+from django.shortcuts import get_object_or_404
 
 
 class f1UserViewSet(viewsets.ModelViewSet):
@@ -116,18 +117,25 @@ def get_favoris_user(request, id_user):
 
 @api_view(['POST'])
 def toggle_favori(request):
+    # on récupère les infos de l'action
     user_id = request.data.get("user_id")
     equipe_id = request.data.get("equipe_id")
 
+    # on vérifie qu'on a les infos
     if not user_id or not equipe_id:
         return Response({"error": "Champs manquants"}, status=400)
+    
+    # on vérifie que l'user et l'équipe existe
+    user = get_object_or_404(f1User, id_user=user_id)
+    equipe = get_object_or_404(Equipe, id_equipe=equipe_id)
 
+    # On supprime ou ajoute l'utilisateur
     try:
-        favori = Favoris.objects.get(user_id=user_id, equipe_id=equipe_id)
+        favori = Favoris.objects.get(user=user, equipe=equipe)
         favori.delete()
         return Response({"status": "removed"})
     except Favoris.DoesNotExist:
-        Favoris.objects.create(user_id=user_id, equipe_id=equipe_id)
+        Favoris.objects.create(user=user, equipe=equipe)
         return Response({"status": "added"})
     
 # ----------------------------------------------------------   Gestion des circuits ----------------------------------
@@ -141,20 +149,26 @@ def get_prefere_user(request, id_user):
 
 @api_view(['POST'])
 def toggle_prefere(request):
-    print("DEBUG POST :", request.data)
-    
+    # on récupère les infos
     user_id = request.data.get("user_id")
     circuit_id = request.data.get("circuit_id")
 
     if not user_id or not circuit_id:
         return Response({"error": "Champs manquants"}, status=400)
+    
+    # on vérifie que l'user et l'équipe existe
+    user = get_object_or_404(f1User, id_user=user_id)
+    circuit = get_object_or_404(Circuit, id_circuit=circuit_id)
 
     try:
-        prefere = Prefere.objects.get(user_id=user_id, circuit_id=circuit_id)
+        # On supprime les valeurs vérifier
+        prefere = Prefere.objects.get(user = user, circuit = circuit)
         prefere.delete()
         return Response({"status": "removed"})
+    # Si sa n'existe pas on rentre dans l'exemption
     except Prefere.DoesNotExist:
-        Prefere.objects.create(user_id=user_id, circuit_id=circuit_id)
+        # On ajoute les valeurs vérifier
+        Prefere.objects.create(user = user, circuit = circuit)
         return Response({"status": "added"})
 
 # ----------------------------------------------------------   Satistiques ----------------------------------
@@ -184,22 +198,30 @@ def get_commentaires(request):
 
 @csrf_exempt
 def add_commentaire(request):
+    # on évite les méthode get
     if request.method != "POST":
         return JsonResponse({"error": "Méthode non autorisée"}, status=405)
 
+    # on récupère le contenu requêtes
     body = json.loads(request.body)
 
+    # On extrait les infos
     texte = body.get("texte")
     id_user = body.get("id_user")
 
+    # On vérifie que ce n'est pas vide
     if not texte or not id_user:
         return JsonResponse({"error": "Champs manquants"}, status=400)
+    
+    user = f1User.objects.filter(id_user=id_user).first()
+    if not user:
+        return JsonResponse({"error":"Utilisateur introuvable"}, status=404)
 
     new_comment = Commentaire.objects.create(
         id_commentaire=str(uuid.uuid4()),
         texte=texte,
         date=date.today(),
-        user_id=id_user
+        user=user
     )
 
     return JsonResponse({"success": True})
