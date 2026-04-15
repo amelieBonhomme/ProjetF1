@@ -22,7 +22,7 @@
             <td>{{ p.Constructors[0].name }}</td>
             <td>{{ p.points }}</td>
             <td>
-              <span v-if="isFavori(p.Constructors[0].constructorId)">❤️</span>
+              <span v-if="isFavori(p.Constructors[0].name)">❤️</span>
               <span v-else>🤍</span>
             </td>
           </tr>
@@ -47,7 +47,7 @@
             <td>{{ c.Constructor.name }}</td>
             <td>{{ c.points }}</td>
             <td>
-              <span v-if="isFavori(c.Constructor.constructorId)">❤️</span>
+              <span v-if="isFavori(c.Constructor.name)">❤️</span>
               <span v-else>🤍</span>
             </td>
           </tr>
@@ -109,17 +109,14 @@ onMounted(async () => {
   commentaires.value = await getCommentaires()
 
 })
-const isFavori = (constructorId) => {
-  // Trouver l'équipe correspondant au constructorId de l'API Ergast
-  const equipe = equipes.value.find(e =>
-    e.nom.toLowerCase().replace(/ /g, "_") === constructorId
-  )
+const isFavori = (constructorName) => {
+  const equipe = equipes.value.find(e => e.nom === constructorName)
 
   if (!equipe) return false
 
-  // Vérifier si l'id_equipe (UUID) est dans les favoris
   return favoris.value.includes(equipe.id_equipe)
 }
+
 
 const submitComment = async () => {
   if (!newComment.value.trim()) return
