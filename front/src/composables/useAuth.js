@@ -48,6 +48,5 @@ export function useAuth() {
     isLogged.value = false
   }
 
-  // ⭐⭐ LA LIGNE QUI MANQUAIT ⭐⭐
   return { isLogged, user, error, login, register, loadUser, logout }
 }

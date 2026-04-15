@@ -22,7 +22,7 @@
             <td>{{ p.Constructors[0].name }}</td>
             <td>{{ p.points }}</td>
             <td>
-              <span v-if="favoris.includes(mapConstructors[p.Constructors[0].constructorId])">❤️</span>
+              <span v-if="isFavori(p.Constructors[0].constructorId)">❤️</span>
               <span v-else>🤍</span>
             </td>
           </tr>
@@ -47,7 +47,7 @@
             <td>{{ c.Constructor.name }}</td>
             <td>{{ c.points }}</td>
             <td>
-              <span v-if="favoris.includes(mapConstructors[c.Constructor.constructorId])">❤️</span>
+              <span v-if="isFavori(c.Constructor.constructorId)">❤️</span>
               <span v-else>🤍</span>
             </td>
           </tr>
@@ -75,6 +75,7 @@ import { ref, onMounted } from "vue"
 import { getClassementPilotes, getClassementConstructeurs } from "@/services/classementApi.js"
 import { getFavoris } from "@/services/favorisApi.js"
 import { getCommentaires, addCommentaire } from "@/services/commentairesApi.js"
+import { getEquipes } from "@/services/api.js"
 
 const pilotes = ref([])
 const pilotesSeason = ref("")
@@ -86,24 +87,10 @@ const constructeursRound = ref("")
   
 const favoris = ref([])
 const user = JSON.parse(localStorage.getItem("user"))
+const equipes = ref([])
 
 const commentaires = ref([])
 const newComment = ref("")
-
-const mapConstructors = {
-  alpine: "ALPINE",
-  aston_martin: "ASTON",
-  audi: "Audi / Kick Sauber", 
-  ferrari: "FERRARI",
-  haas: "HAAS",
-  mclaren: "MCLAREN",
-  mercedes: "MERCEDES",
-  rb: "RB",
-  red_bull: "REDBULL",
-  williams: "WILLIAMS",
-  cadillac: "CADILLAC"
-}
-
 
 onMounted(async () => {
   const p = await getClassementPilotes()
@@ -116,11 +103,23 @@ onMounted(async () => {
   constructeursSeason.value = c.season
   constructeursRound.value = c.round
 
+  equipes.value = await getEquipes()
   favoris.value = await getFavoris(user.id_user)
 
   commentaires.value = await getCommentaires()
 
 })
+const isFavori = (constructorId) => {
+  // Trouver l'équipe correspondant au constructorId de l'API Ergast
+  const equipe = equipes.value.find(e =>
+    e.nom.toLowerCase().replace(/ /g, "_") === constructorId
+  )
+
+  if (!equipe) return false
+
+  // Vérifier si l'id_equipe (UUID) est dans les favoris
+  return favoris.value.includes(equipe.id_equipe)
+}
 
 const submitComment = async () => {
   if (!newComment.value.trim()) return
