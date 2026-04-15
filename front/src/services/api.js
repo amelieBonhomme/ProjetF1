@@ -1,4 +1,4 @@
-// Faire accéder le code au la base de données
+// Faire accéder le code au la base de données pour afficher
 
 const API_URL = "http://localhost:8000/api/"
 
@@ -23,5 +23,11 @@ export async function getCommentaires() {
 
 export async function getFavoris() {
   const response = await fetch(API_URL + "favoris/")
+  return await response.json()
+}
+
+// pas encore utiliser mais je le met en cas
+export async function getPrefere() {
+  const response = await fetch(API_URL + "prefere/")
   return await response.json()
 }
