@@ -7,7 +7,7 @@ import { useAuth } from "@/composables/useAuth.js"
 
 const router = useRouter()
 
-// ⭐ Une seule instance du composable
+
 const { isLogged, loadUser, logout } = useAuth()
 
 onMounted(() => {

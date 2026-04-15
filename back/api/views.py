@@ -18,6 +18,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from datetime import date
 from django.shortcuts import get_object_or_404
+import re
 
 
 class f1UserViewSet(viewsets.ModelViewSet):
@@ -79,12 +80,25 @@ class RegisterView(APIView):
         date_naissance = request.data.get("date_naissance")
         mail = request.data.get("mail")
 
-        if not login or not mdp or not nom or not prenom or not mail or not sexe or not date_naissance:
-            return Response({"error": "Champs manquants"}, status=status.HTTP_400_BAD_REQUEST)
+        # Vérification login
+        if not login or not login.strip():
+            return Response({"error": "Le login est obligatoire."}, status=400)
 
         if f1User.objects.filter(login=login).exists():
-            return Response({"error": "Login déjà utilisé"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Ce login existe déjà."}, status=400)
 
+        # Vérification mot de passe
+        if not mdp or len(mdp) < 4:
+            return Response({"error": "Le mot de passe doit contenir au moins 4 caractères."}, status=400)
+
+        # Vérification email
+        if mail and not re.match(r"[^@]+@[^@]+\.[^@]+", mail):
+            return Response({"error": "Adresse mail invalide."}, status=400)
+
+        # Vérification sexe
+        if sexe not in ["H", "F", "X"]:
+            return Response({"error": "Sexe invalide."}, status=400)
+        
         id_user = str(uuid.uuid4())
 
         user = f1User.objects.create(

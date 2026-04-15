@@ -1,16 +1,19 @@
 from rest_framework import serializers
 from .models import f1User, Equipe,Circuit, Commentaire, Favoris, Prefere
 
+# déjà sécuriser dans la vue
 class f1UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = f1User
         fields = '__all__'
 
+# pas d'entrée par les utilisateurs donc sécurié pas nessecaire
 class EquipeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Equipe
         fields = '__all__'
 
+# pas d'entrée par les utilisateurs donc sécurié pas nessecaire
 class CircuitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Circuit
