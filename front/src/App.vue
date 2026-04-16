@@ -41,7 +41,6 @@ const toggleMenu = () => {
       <li><router-link to="/ecurie">Ecurie</router-link></li>
       <li><router-link to="/circuit">Circuit</router-link></li>
       <li><router-link to="/classement">Classement</router-link></li>
-      <li><router-link to="/classement">Classement</router-link></li>
       <li><button v-if="isLogged" class="logout-btn-mobile"@click="logoutUser">
           Déconnexion
         </button>
